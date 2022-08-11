@@ -1,0 +1,87 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Login</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+</head>
+
+<body class="modal-body" style="position: static;">
+
+
+    <div class="container">
+        <div class="top-stories">
+            {% for post in post_list %}
+                <div class="stories">
+                    <a href="{{ post.get_absolute_url }}">
+                        <img src="{{ post.image.url }}" alt="{{post.slug}}" class="opacity">
+                    </a>
+                    <a href="{{ post.get_absolute_url }}" style="pointer-events: none;">
+                        <h3 class="title">{{ post.title|capfirst }}</h3>
+                    </a>
+                    <p>
+                        {{ post.content|truncatewords:20}}
+                        ...
+                    </p>
+                    <p style="align-self: flex-end; font-style: italic;">{{ post.source }}</p>
+
+                    <div class="hamburger">
+                        <button>
+                            <img src="{% static '/images/hamburger.png' %}" alt="">
+                        </button>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="modal-popup modal-center">
+
+        <div class="modal-container-content">
+            <div>
+                <div class="flex-row">
+                    <h3 style="font-family: 'sunmedium';">Login</h3>
+                    <p>To sign-in, please go to telegram and search for the bot with the username:
+                        <br> <span style="user-select: all;">@bonsai_bot</span>
+                    </p>
+                    <div>
+                        <img src="{% static '/images/bot.png' %}" alt="">
+
+                    </div>
+                    <p>After you find them, please send them the following command: <br><span
+                            style="font-family: 'sunmedium';">/login</span></p>
+                    <p>When you pass the command to garcon, he will give you a code to complete login</p>
+
+                    <div style="gap: 2rem" class="d-flex justify-content-around align-items-center">
+                        <a href="/" class="btn header-menu" style="margin-right: 25px;">Enter code</a>
+                        <a href="/" class="btn header-menu">Open Telegram</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dismiss-btn">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+        </div>
+
+    </div>
+
+
+    <script src="/js/main.js"></script>
+    <script>
+        document.querySelector(".dismiss-btn button").addEventListener("click", function () {
+            document.querySelector(".modal-popup").classList.add("toggle")
+        })
+    </script>
+</body>
+
+
+
+</html>

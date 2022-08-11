@@ -1,0 +1,75 @@
+{% load static %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Add link</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static '/css/style.css' %}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+</head>
+
+<body class="modal-body">
+
+    <div class="container">
+        <div class="top-stories">
+
+            {% for post in post_list %}
+            <div class="stories">
+                <a href="{{ post.get_absolute_url }}">
+                    <img class="opacity" src="{{ post.image.url }}" alt="{{post.slug}}">
+                </a>
+                <a style="pointer-events: none;" href="{{ post.get_absolute_url }}">
+                    <h3 class="title">{{ post.title|capfirst }}</h3>
+                </a>
+                <p>
+                    {{ post.content|truncatewords:20}}
+                    ...
+                </p>
+                <p style="align-self: flex-end; font-style: italic;">{{ post.source }}</p>
+
+                <div class="hamburger">
+                    <button>
+                        <img src="{% static '/images/hamburger.png' %}" alt="">
+                    </button>
+                </div>
+            </div>
+            {% endfor %}
+
+
+        </div>
+    </div>
+
+    <div class="modal-popup modal-center modal-edit">
+        <div class="modal-container-content">
+            <div class="flex-row">
+                <h4>add link</h4>
+                <div>
+                    <form action="" style="display: flex; flex-direction: row; gap: 20px;">
+                        <input type="text" class="form-control" placeholder="start typing ...">
+                        <button type="submit" class="trans-btn">add</button>
+                    </form>
+
+                </div>
+            </div>
+            <div class="dismiss-btn">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        document.querySelector(".dismiss-btn button").addEventListener("click", function () {
+            document.querySelector(".modal-popup").classList.add("toggle")
+        })
+    </script>
+</body>
+
+</html>
